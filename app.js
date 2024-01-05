@@ -1,19 +1,39 @@
 const express = require('express')
 const multer = require('multer');
 const app = express()
-
+//Dành cho socketio
 const http = require('http');
 const server = http.createServer(app);
 const { Server } = require("socket.io");
 const io = new Server(server);
 
 
+//Xử lí form với body-parser
 var bodyParser = require('body-parser')
 var session = require('express-session')
 const PORT = process.env.PORT || 3030;
 
 
+//Xử lí âm thanh game với thư viện howler.js
+// const {Howl, Howler} = require('howler');
+// // Setup the new Howl.
+// const sound = new Howl({
+//   src: ['/audio/Tieng-khi-keu-www_tiengdong_com.mp3'],
+//   onload(){
+//     console.log('ok la')
+//   },
+//   onloaderror(e, msg){
+//     console.log('error', e, msg)
+//   }
+// });
+
+// Play the sound.
+// sound.play();
+
+
+//Kết nối mongodb
 const mongoose = require('mongoose');
+// mongoose.connect('mongodb+srv://admin123:admin123ok@baucua.oqtswzp.mongodb.net/test?retryWrites=true&w=majority').then(()=>console.log('Ket nối DB thành công')).catch(()=>console.log('Kết nối DB thất bại'))
 mongoose.connect(
     "mongodb://mongo:HAe-ABh4afcFdE2-CG-dBEeFgb-63Dfg@roundhouse.proxy.rlwy.net:19798",
     {
@@ -26,6 +46,7 @@ mongoose.connect(
         "Connected to yourDB-name database")
   );
 
+// Use the session middleware
 app.use(session({
     resave: true,
     saveUninitialized: true,
@@ -90,7 +111,7 @@ app.post('/login',urlencodedParser, (req, res)=>{
         req.session.admin_login = 'admin_login'
         res.redirect('/admin');
     }else{
-        var userModel = require('./src/model/userModel');
+        var userModel = require('./model/userModel');
         userModel.findOne({tendangnhap: username_input, matkhau: password_input})
             .then((data)=>{
                 //Khi đã đúng tên tài khoản thì thực hiện chuyển trang
@@ -139,7 +160,7 @@ app.post('/register',upload.single('formFile'),urlencodedParser, (req, res)=>{
  
 
 
-    const userModel = require('./src/model/userModel');
+    const userModel = require('./model/userModel');
     //Tìm xem trong DB đã có tài khoản nào trùng không
     userModel.findOne({tendangnhap: username_input})
         .then((data)=>{
@@ -178,7 +199,7 @@ app.get('/home', (req, res)=>{
 
 //Trang màn hình chính
 app.get('/mainScreen',(req, res)=>{
-    const userModel = require('./src/model/userModel');
+    const userModel = require('./model/userModel');
     const idUser = new mongoose.mongo.ObjectId(req.session.id_userData);
 
     userModel.findOne({_id: idUser})
@@ -204,7 +225,7 @@ app.get('/404_page',(req, res)=>{
 //Trang admin
 app.get('/admin',(req, res)=>{
     if( typeof(req.session.admin_login) != 'undefined'){
-        const buyCardModel = require('./src/model/buyCard');
+        const buyCardModel = require('./model/buyCard');
         buyCardModel.find().then((data)=>{
             res.render('admin' , {buyCardInfo : data})
         }).catch(()=>res.redirect('/404_page'))
@@ -217,8 +238,8 @@ var openRoom = 'true'
 
 
 io.on('connection', (socket) => {
-    const roomUserModel = require('./src/model/roomUser');
-    const showCoinModel = require('./src/model/showcoin');
+    const roomUserModel = require('./model/roomUser');
+    const showCoinModel = require('./model/showcoin');
     // console.log('Số người hiện đang kết nối '+ socket.client.conn.server.clientsCount)
     // console.log('Người chơi '+ socket.id)
 
@@ -268,7 +289,7 @@ io.on('connection', (socket) => {
     //Khi admin nhấn bắt đầu game
     socket.on('action1',()=>{
         io.emit('action1FromAdmin')
-        const ketqua = require('./src/model/ketqua');
+        const ketqua = require('./model/ketqua');
         const randomNumberNew = Math.ceil(Math.random()*216)
         let danhtinh = arrayNumber[randomNumberNew];
     
@@ -288,7 +309,7 @@ io.on('connection', (socket) => {
 
     //Khi nhận được thông báo khui từ phía client sẽ tạo ra ngẫu nhiên các cặp số
     socket.on('khuixucxac',(data)=>{
-        const ketqua = require('./src/model/ketqua');
+        const ketqua = require('./model/ketqua');
         let arrayUser = []
         let datcuocUser = []
         let mangbaucua = data.mangbaucua
@@ -367,8 +388,8 @@ io.on('connection', (socket) => {
     })
 
     socket.on('capnhattienmoi',(guidi)=>{
-        const userModel = require('./src/model/userModel');
-        const roomUserModel = require('./src/model/roomUser');
+        const userModel = require('./model/userModel');
+        const roomUserModel = require('./model/roomUser');
 
         userModel.findOneAndUpdate({nickname: guidi.nickname},{
             tongxu: guidi.tongxu
@@ -407,7 +428,7 @@ io.on('connection', (socket) => {
     //Khi Admin nhấn vào bắt đầu lại màn chơi
     socket.on('action2',()=>{
         io.emit('action2FromAdmin')
-        const showCoinModel = require('./src/model/showcoin');
+        const showCoinModel = require('./model/showcoin');
         showCoinModel.findOneAndUpdate({id:'saveimg'},
             {nai: 0,
             bau:0,
@@ -422,16 +443,16 @@ io.on('connection', (socket) => {
     //Nhận hành động sửa lỗi
     socket.on('fixed',()=>{
         //Xử lí lỗi nạp tiền
-        const handlebuycard = require('./src/model/handlebuycard');
+        const handlebuycard = require('./model/handlebuycard');
         handlebuycard.findOneAndRemove({}).then()
 
         //Xử lí lỗi người chơi trong phòng (reset)
-        const roomuser = require('./src/model/roomUser');
+        const roomuser = require('./model/roomUser');
         roomuser.findOneAndRemove({}).then()
         roomuser.deleteMany()
 
 
-        const showCoinModel = require('./src/model/showcoin');
+        const showCoinModel = require('./model/showcoin');
         showCoinModel.findOneAndUpdate({id:'saveimg'},
             {nai: 0,
             bau:0,
@@ -536,7 +557,7 @@ io.on('connection', (socket) => {
 
     //Khi bấm vào nút xem người chơi trong phòng
     socket.on('showuserinRoom',()=>{
-        const roomUserModel = require('./src/model/roomUser');
+        const roomUserModel = require('./model/roomUser');
         roomUserModel.find().then((data)=>{
             socket.emit('showuserinRoomClient', data)
         })
@@ -546,7 +567,7 @@ io.on('connection', (socket) => {
     //Xử lí chỉ nhận 1 người mua vé
     socket.on('userbuycard',(data)=>{
         let socketid = data;
-        const handlebuycard = require('./src/model/handlebuycard');
+        const handlebuycard = require('./model/handlebuycard');
 
         handlebuycard.count({}, function( err, count){
             if(count > 0){
@@ -583,7 +604,7 @@ io.on('connection', (socket) => {
 
     //Khi đã xác nhận nạp tiền từ phía admin
     socket.on('accept_buy_card', (data)=>{
-        const userModel = require('./src/model/userModel');
+        const userModel = require('./model/userModel');
         const nickname = data.nickname;
         const tongxu = data.tongxu;
         const money = data.money
@@ -600,7 +621,7 @@ io.on('connection', (socket) => {
         var current_time = date.getHours()+":"+date.getMinutes()+":"+ date.getSeconds();
         var date_time = current_date+" "+current_time;	
         
-        const buyCardModel = require('./src/model/buyCard');
+        const buyCardModel = require('./model/buyCard');
         buyCardModel.create({
             tennguoichoi: nickname,
             sotiennap: money,
@@ -612,7 +633,7 @@ io.on('connection', (socket) => {
 
     //Xác nhận rút tiền từ Admin
     socket.on('accept_ruttien', (data)=>{
-        const userModel = require('./src/model/userModel');
+        const userModel = require('./model/userModel');
         const nickname = data.nickname;
         const sotienrut = data.sotienrut;
         const tongxu_update = 0;
@@ -628,7 +649,7 @@ io.on('connection', (socket) => {
         var current_time = date.getHours()+":"+date.getMinutes()+":"+ date.getSeconds();
         var date_time = current_date+" "+current_time;	
         
-        const buyCardModel = require('./src/model/ruttien');
+        const buyCardModel = require('./model/ruttien');
         buyCardModel.create({
             tennguoichoi: nickname,
             sotienrut: sotienrut,
@@ -648,8 +669,8 @@ io.on('connection', (socket) => {
     })
     
     socket.on('disconnect', () => {
-        const roomUserModel = require('./src/model/roomUser');
-        const handlebuycard = require('./src/model/handlebuycard');
+        const roomUserModel = require('./model/roomUser');
+        const handlebuycard = require('./model/handlebuycard');
 
         handlebuycard.findOneAndRemove({socket_id: socket.id},
             function (err, docs) {
@@ -683,7 +704,7 @@ io.on('connection', (socket) => {
 
 //Trang nạp xu
 app.get('/buy_card', (req, res)=>{
-const userModel = require('./src/model/userModel');
+const userModel = require('./model/userModel');
 const idUser = new mongoose.mongo.ObjectId(req.session.id_userData);
 
 userModel.findOne({_id: idUser})
@@ -696,7 +717,7 @@ userModel.findOne({_id: idUser})
 
 //Trang phòng chơi game
 app.get('/join_room',(req, res)=>{
-    const userModel = require('./src/model/userModel');
+    const userModel = require('./model/userModel');
     const idUser = new mongoose.mongo.ObjectId(req.session.id_userData);
 
     userModel.findOne({_id: idUser})
