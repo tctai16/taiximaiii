@@ -76,19 +76,19 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
 
 //cấu hình lưu trữ file khi upload xong
-// const storage = multer.diskStorage({
-//     destination: function (req, file, cb) {
-//       //files khi upload xong sẽ nằm trong thư mục "uploads" này - các bạn có thể tự định nghĩa thư mục này
-//       cb(null, './public/uploads') 
-//     },
-//     filename: function (req, file, cb) {
-//       // tạo tên file = thời gian hiện tại nối với số ngẫu nhiên => tên file chắc chắn không bị trùng
-//       const filename = Date.now() + '-' + Math.round(Math.random() * 1E9) 
-//       cb(null, filename + '-' + file.originalname )
-//     }
-//   })
-// //Khởi tạo middleware với cấu hình trên, lưu trên local của server khi dùng multer
-// const upload = multer({ storage: storage })
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      //files khi upload xong sẽ nằm trong thư mục "uploads" này - các bạn có thể tự định nghĩa thư mục này
+      cb(null, './public/uploads') 
+    },
+    filename: function (req, file, cb) {
+      // tạo tên file = thời gian hiện tại nối với số ngẫu nhiên => tên file chắc chắn không bị trùng
+      const filename = Date.now() + '-' + Math.round(Math.random() * 1E9) 
+      cb(null, filename + '-' + file.originalname )
+    }
+  })
+//Khởi tạo middleware với cấu hình trên, lưu trên local của server khi dùng multer
+const upload = multer({ storage: storage })
 
 
 //Su dung router
@@ -141,13 +141,12 @@ app.get('/register', (req, res)=>{
     res.render('register')
 })
 
-app.post('/register',urlencodedParser, (req, res)=>{
+app.post('/register',upload.single('formFile'),urlencodedParser, (req, res)=>{
     const username_input = req.body.username;
     const password_input = req.body.password;
     const nickname_input = req.body.nickname;
-   
-   
-    const defaultAvatar = './public/uploads/avatar.jpg';
+    //nhận dữ liệu từ form
+    const file = req.file;
  
     
     // Kiểm tra nếu không phải dạng file thì báo lỗi
@@ -162,10 +161,10 @@ app.post('/register',urlencodedParser, (req, res)=>{
 
 
     const userModel = require('./model/userModel');
-
+    //Tìm xem trong DB đã có tài khoản nào trùng không
     userModel.findOne({tendangnhap: username_input})
         .then((data)=>{
-        
+            //Khi đã đúng thì chắc chắn đã có 1 tài khoản
             if(data){
                 res.render('register',{duplicated_username: "Tài khoản đã tồn tại !"})
             }else{
@@ -174,7 +173,7 @@ app.post('/register',urlencodedParser, (req, res)=>{
                     tendangnhap: username_input,
                     matkhau: password_input,
                     nickname: nickname_input,
-                    anhdaidien: defaultAvatar.filename
+                    anhdaidien: file.filename
                 }).then((data)=>
                     {
                         req.session.id_userData = data._id.toString();
@@ -739,4 +738,3 @@ app.get('*',(req, res)=>{
 server.listen(PORT, ()=>{
     console.log(`Ket noi thanh cong server voi cong port = ${PORT}`)
 })
-
