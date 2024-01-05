@@ -1,0 +1,1386 @@
+<%- include('./partials/header'); -%>
+  <title>Phòng Chơi</title>
+
+  <div style="   background-image:url('./img/background_nen.png');
+  height: 100vh;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;">
+    <div class="container d-flex flex-column justify-content-between" id="roomGame" style="height: 100%;">
+      <% if(typeof userInfo !==undefined){%>
+        <header class="row d-flex flex-column" style="flex-wrap: no-wrap">
+          <!-- <button id="zoomIn">Phóng to</button>
+               <button id="zoomOut">Thu nhỏ</button> -->
+          <div class="row" style="flex-wrap:nowrap">
+            <a href="/mainScreen" class="fs-3" style="width:fit-content;margin-right:auto">
+              <img src="./img/left-arrow.png" alt="" style="    width: 35px;
+          height: 35px;
+          object-fit: contain;
+          object-position: center;">
+
+            </a>
+
+
+            <!-- <div id="chatRoom" style="text-align:right;margin-right:20px">
+              <img src="./img/chat.png" alt="" style="    width: 35px;
+              height: 35px;
+              object-fit: contain;
+              object-position: center;margin-right: 27px;">
+            </div> -->
+
+          </div>
+
+
+          <div class="d-flex  align-items-center">
+            <main style="height: 10vh;width: fit-content;">
+              <!-- Button trigger modal -->
+              <button type="button" class="btn btn-success" id="btn_show_user" data-bs-toggle="modal" data-bs-target="#exampleModal" style="    height: 50px;
+          width: 50px;
+          margin-top: 10px;
+          /* width: fit-content; */
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background-color: #56c923;">
+                <span id="countUser">1</span>/9
+                <!-- <img src="./img/list.png" alt="" style="    width: 35px;
+            height: 35px;
+            object-fit: contain;
+            object-position: center;"> -->
+              </button>
+
+              <!-- Modal -->
+              <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Đang trực tuyến</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" id="userinroom">
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </main>
+
+            <div id="actionGame" style="color:white;text-align: center;margin-left: 10px;">
+              <h2 id="statusGame" style="    background-color: white;
+              color: black;
+              border-radius: 10px;
+              padding: 3px;
+              border: 1px solid red;"></h2>
+            </div>
+
+
+          </div>
+        </header>
+
+
+        <div class="container-fluid d-flex justify-content-between" id="userinTable" style="    max-height: 45vh;padding: 0;
+            height: 63vh">
+
+          <!-- Hiển thị user bên trái -->
+          <div id="left_user_show" style="display: flex;
+          flex-direction: column;">
+
+          </div>
+
+          <!-- Hiển thị bàn cờ -->
+          <div id="show_ban_co" style="display: flex;align-items: center;margin:2px" class="d-flex flex-column">
+            <div class="container text-white text-center mb-5" id="xucxac">
+              <div id="caito" data-aos="fade-left" data-aos="fade-down" data-aos-easing="linear" data-aos-duration="1000">
+
+              </div>
+              <div id="caidia" data-aos="fade-up" data-aos-anchor-placement="center-bottom">
+
+              </div>
+            </div>
+            <div class="container" style="position:relative">
+              <div class="overlay" style="    position: absolute;
+              display: block;
+              z-index: 2;
+              background-color: rgb(255 0 0 / 0%);
+              top: 0;
+              left: 0;
+              right: 0;
+              bottom: 0;" id="lopphu">
+
+              </div>
+              <div class="row row-cols-3" style="border:2px solid orange;border-radius: 5px;    background-color: #7d0301;
+              ">
+                <div class="col">
+                  <div class="count_coin_order" data-index="nai">
+
+                  </div>
+                  <img src="./img/nai.png" class="cell_chess" data-index="nai">
+                </div>
+                <div class="col">
+                  <div class="count_coin_order" data-index="bau">
+
+                  </div>
+                  <img src="./img/bau.png" class="cell_chess" data-index="bau">
+                </div>
+                <div class="col">
+                  <div class="count_coin_order" data-index="ga">
+
+                  </div>
+                  <img src="./img/ga.png" class="cell_chess" data-index="ga">
+                </div>
+                <div class="col">
+                  <div class="count_coin_order" data-index="ca">
+
+                  </div>
+                  <img src="./img/ca.png" class="cell_chess" data-index="ca">
+                </div>
+                <div class="col">
+                  <div class="count_coin_order" data-index="cua">
+
+                  </div>
+                  <img src="./img/cua.png" class="cell_chess" data-index="cua">
+                </div>
+                <div class="col">
+                  <div class="count_coin_order" data-index="tom">
+
+                  </div>
+                  <img src="./img/tom.png" class="cell_chess" data-index="tom">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Hiển thị user bên phải -->
+          <div id="right_user_show" style="display: flex;
+          flex-direction: column;align-items: flex-end;">
+            <div>
+              <p>Phan Quí</p>
+              <div id="img_user_right">
+                <img src="./img/customer.png" alt="">
+              </div>
+              <div id="info_game_user_right">
+                <span>6</span>
+                <img src="img/coin.png" alt="">
+              </div>
+            </div>
+
+            <div style="color: white;display: inline-block;">
+              <p style="
+                  margin: 0;
+                  white-space: nowrap;
+                  width: 40px;
+                  overflow: hidden;
+                  text-overflow: ellipsis;
+                  /* border: 1px solid #000000; */
+              ">Phan Quí</p>
+              <div style="border:2px solid #7bd6e5; display: inline-block;border-radius: 5px;">
+                <img src="./img/customer.png" alt="" width="30px" height="30px" style="border:1px solid #7bd6e5;background-color: white;">
+              </div>
+              <div style="
+                      display: flex;
+                      border-radius: 5px 5px 5px 5px;
+                      background-color: #473639;
+                      width: fit-content;
+                      padding: -2px;
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;
+                      font-size: 13px;
+                      width: fit-content;
+                      opacity: 0.8;
+                  ">
+                <span>6</span>
+                <img style="
+                  width: 15px;
+                  height: 15px;
+              " src="img/coin.png" alt="">
+              </div>
+            </div>
+
+            <div style="color: white;display: inline-block;">
+              <p style="
+                  margin: 0;
+                  white-space: nowrap;
+                  width: 40px;
+                  overflow: hidden;
+                  text-overflow: ellipsis;
+                  /* border: 1px solid #000000; */
+              ">Phan Quí</p>
+              <div style="border:2px solid #7bd6e5; display: inline-block;border-radius: 5px;">
+                <img src="./img/customer.png" alt="" width="30px" height="30px" style="border:1px solid #7bd6e5;background-color: white;">
+              </div>
+              <div style="
+                      display: flex;
+                      border-radius: 5px 5px 5px 5px;
+                      background-color: #473639;
+                      width: fit-content;
+                      padding: -2px;
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;
+                      font-size: 13px;
+                      width: fit-content;
+                      opacity: 0.8;
+                  ">
+                <span>6</span>
+                <img style="
+                  width: 15px;
+                  height: 15px;
+              " src="img/coin.png" alt="">
+              </div>
+            </div>
+
+            <div style="color: white;display: inline-block;">
+              <p style="
+                  margin: 0;
+                  white-space: nowrap;
+                  width: 40px;
+                  overflow: hidden;
+                  text-overflow: ellipsis;
+                  /* border: 1px solid #000000; */
+              ">Phan Quí</p>
+              <div style="border:2px solid #7bd6e5; display: inline-block;border-radius: 5px;">
+                <img src="./img/customer.png" alt="" width="30px" height="30px" style="border:1px solid #7bd6e5;background-color: white;">
+              </div>
+              <div style="
+                      display: flex;
+                      border-radius: 5px 5px 5px 5px;
+                      background-color: #473639;
+                      width: fit-content;
+                      padding: -2px;
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;
+                      font-size: 13px;
+                      width: fit-content;
+                      opacity: 0.8;
+                  ">
+                <span>6</span>
+                <img style="
+                  width: 15px;
+                  height: 15px;
+              " src="img/coin.png" alt="">
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <footer class="row container-fluid" style="    width: 300px;display: flex;flex-wrap:nowrap;z-index:2;
+    margin: 0 auto;">
+          <div class="card" style="border-radius: 10px;
+        border: 1px solid #ccc;background-color: #252a4f ;padding: 3px 0px 0px 0px;">
+            <div class="card-body d-flex" style="
+            flex-direction: column;padding-bottom: 0;
+              ">
+              <div class="row">
+                <div class="col">
+                  <img class="col" style="width: 70px;
+                  height: 70px;
+                  border-radius: 10px;
+                  object-fit: cover;
+                  border: 3px solid #3396c5" src="/uploads/<%= userInfo.anhdaidien%>" alt="" width="50px" height="50px" id="anhdaidien">
+                  <!-- <button id="restart_order" type="button" class="btn btn-danger mt-2 mb-2" style="font-size: 13px;display: none;">Đặt lại</button> -->
+
+
+                </div>
+
+                <div class="col">
+                  <div class="row">
+                    <p id="nickname_user" style="color:#66b4bf;font-weight: bold;margin-bottom: 5px;">
+                      <%= userInfo.nickname%>
+                    </p>
+
+                  </div>
+                  <div class="row">
+                    <p style="
+                    width: fit-content;
+                    border: 1px solid #ccc;
+                    border-radius: 10px;
+                    margin-left: 10px;
+                    background-color: #313851;
+                    padding: 5px 0 5px 10px;
+                ">
+
+                      <span id="tongxu" style="
+                        color: #dbd956;
+                        font-weight: bold;
+                        font-size: 23px;
+                    ">
+                        <%= userInfo.tongxu %>
+                      </span>
+                      <img style="
+                  width: 30px;
+                  height: 30px;
+              " src="img/coin.png" alt="">
+                  </div>
+                  <div class="row">
+                    <div id="xuthem">
+
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+              <div class="row d-flex" style="flex-wrap: nowrap;background-color: #334464 ;padding: 7px;">
+                <div class="col coinChoose" style="padding-left: 0;" data-index="1">
+                  <button type="button" style="width:57px;color:black;background-color: yellow;" class="btn btn-danger" data-index="1"><span style="
+                    display: flex;
+                    font-size: 22px;
+                    font-weight: bold;
+                " data-index="1">1
+                      <img style="
+                    width: 30px;
+                    height: 30px;
+                " src="img/coin.png" alt="" data-index="1">
+                    </span> </button>
+                </div>
+                <div class="col coinChoose" data-index="3">
+                  <button type="button" style="width:57px;color:black;background-color: yellow;" class="btn btn-danger" data-index="3"><span style="
+                    display: flex;
+                    font-size: 22px;
+                    font-weight: bold;
+                " data-index="3">3
+                      <img style="
+                    width: 30px;
+                    height: 30px;
+                " src="img/coin.png" alt="" data-index="3">
+                    </span> </button>
+                </div>
+                <div class="col coinChoose" style="padding-right: 0;" data-index="5">
+                  <button type="button" style="width:57px;color:black;background-color: yellow;" class="btn btn-danger" data-index="5"><span style="
+                    display: flex;
+                    font-size: 22px;
+                    font-weight: bold;
+                " data-index="5">5
+                      <img style="
+                    width: 30px;
+                    height: 30px;
+                " src="img/coin.png" alt="" data-index="5">
+                    </span> </button>
+                </div>
+
+              </div>
+
+            </div>
+          </div>
+          <div id="chaticon" style="
+          width: 50px;
+          height: 50px;
+          margin-top: 25%;
+          margin-left: 3px;
+          border-radius: 50%;
+          border: 1px solid blue;
+          background-color: white;
+          position: absolute;
+          z-index: 1000;
+          right: 0;
+      ">
+            <img id="chatIcon" src="./img/chaticon.png" alt="" style="
+          width: 100%;
+          height: 100%;
+          object-fit: scale-down;
+          position:relative;
+          z-index: 999;
+      ">
+          </div>
+          <div id="fullscreen" style="
+          width: 50px;
+          height: 50px;
+          margin-top: 10%;
+          margin-left: 3px;
+          border-radius: 50%;
+          border: 1px solid blue;
+          background-color: white;
+          position: absolute;
+          z-index: 999;
+          right: 0;
+      ">
+            <img id="btnToggleFull" src="./img/fullscreen.png" alt="" style="
+          width: 100%;
+          height: 100%;
+          object-fit: scale-down;
+      ">
+          </div>
+        </footer>
+        <% } %>
+
+          <div id="overlay_chat" style="display:none;position:absolute;z-index:998;">
+            <div id="chat_form" style="position: fixed;
+            /* top: 0; */
+            left: 19px;
+            right: 0;
+            bottom: -117px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgb(255 255 255 / 80%);
+            /* opacity: 0.2; */
+            width: 100%;
+            flex-direction: column;
+            height: 60%;">
+              <h2>Chat Room
+                <i class='bx bx-window-close' id="btn_exit_mess" style="    position: absolute;
+                right: 23px;
+                font-size: 40px;
+                top: 7px;"></i>
+              </h2>
+              <div>
+                <input type="text" placeholder="Nhập tin nhắn vào đây..." style="border-radius:10px;
+                padding:5px;" id="loinhan" maxlength="35">
+                <button class="button-29" role="button" id="sendMessage">Gửi</button>
+              </div>
+
+              <emoji-picker style="
+                width: 400px;
+                height: 300px;
+              "></emoji-picker>
+              <br>
+
+            </div>
+          </div>
+    </div>
+
+  </div>
+
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/emoji-picker-element@^1/index.js"></script>
+  <script>
+    AOS.init();
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.2/jquery.js" integrity="sha512-NMtENEqUQ8zHZWjwLg6/1FmcTWwRS2T5f487CCbQB3pQwouZfbrQfylryimT3XvQnpE7ctEKoZgQOAkWkCW/vg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/notify/0.4.2/notify.js" integrity="sha512-uE2UhqPZkcKyOjeXjPCmYsW9Sudy5Vbv0XwAVnKBamQeasAVAmH6HR9j5Qpy6Itk1cxk+ypFRPeAZwNnEwNuzQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+  <!-- Hỗ trợ âm thanh cho game -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js" integrity="sha512-6+YN/9o9BWrk6wSfGxQGpt3EUK6XeHi6yeHV+TYD2GR0Sj/cggRpXr1BrAQf0as6XslxomMUxXp2vIl+fv0QRA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script>
+    // //Xử lí FullScreen
+    // let zoomIn = document.querySelector('#zoomIn')
+    // let zoomOut = document.querySelector('#zoomOut')
+    // let el = document.documentElement;
+
+    // zoomIn.addEventListener('click',()=>{
+    //   if(el.requestFullscreen){
+    //     el.requestFullscreen()
+    //   }
+    // })
+
+    // zoomOut.addEventListener('click',()=>{
+    //   if(document.exitFullscreen){
+    //     document.exitFullscreen()
+    //   }
+    // })
+
+
+    let btnFull = document.querySelector('#btnToggleFull')
+
+    btnFull.addEventListener('click', () => {
+      if (screenfull.isEnabled) {
+        screenfull.toggle();
+      }
+    })
+
+
+
+    var socket = io();
+
+
+    var nhacnen = new Howl({
+      src: ['/audio/nhacnengame.mp3']
+    });
+
+
+    var soundhd0 = new Howl({
+      src: ['/audio/hd1.mp3']
+    });
+
+    var soundhd1 = new Howl({
+      src: ['/audio/hdlacxucxac.mp3']
+    });
+
+
+    var soundhd1_2 = new Howl({
+      src: ['/audio/hdxucxackeu_new.mp3']
+    });
+
+
+    var datcuocdi = new Howl({
+      src: ['/audio/datcuocdi.mp3']
+    });
+
+    var soundhd2 = new Howl({
+      src: ['/audio/hdxucxackeu.mp3']
+    });
+
+    var datcuoc = new Howl({
+      src: ['/audio/datcuoc.mp3']
+    });
+
+    var demnguoc = new Howl({
+      src: ['/audio/demnguoc.mp3']
+    });
+
+    var hetgio = new Howl({
+      src: ['/audio/hetgio.mp3']
+    });
+
+    var khui = new Howl({
+      src: ['/audio/khui.mp3']
+    });
+
+    var xuroi = new Howl({
+      src: ['/audio/xuroi.mp3']
+    });
+
+    var chucmung = new Howl({
+      src: ['/audio/chucmung.mp3']
+    });
+
+    var nai = new Howl({
+      src: ['/audio/nai.mp3']
+    });
+
+    var nai = new Howl({
+      src: ['/audio/nai.mp3']
+    });
+    var bau = new Howl({
+      src: ['/audio/bau.mp3']
+    });
+    var ga = new Howl({
+      src: ['/audio/ga.mp3']
+    });
+    var ca = new Howl({
+      src: ['/audio/ca.mp3']
+    });
+    var tom = new Howl({
+      src: ['/audio/tom.mp3']
+    });
+    var cua = new Howl({
+      src: ['/audio/cua.mp3']
+    });
+
+    var tiengdatxu = new Howl({
+      src: ['/audio/bonk.mp3']
+    });
+
+    var chienthang = new Howl({
+      src: ['/audio/chienthang.mp3']
+    });
+
+
+    //Xu li chat room
+    let chatbtn = document.querySelector('#chatIcon')
+    chatbtn.addEventListener('click', () => {
+      let chatoverLay = document.querySelector('#overlay_chat')
+      if (chatoverLay.style.display == 'block') {
+        chatoverLay.style.display = 'none'
+      } else {
+        chatoverLay.style.display = 'block'
+      }
+    })
+
+
+    document.querySelector('#btn_exit_mess').addEventListener('click', () => {
+      document.querySelector('#overlay_chat').style.display = 'none'
+    })
+
+
+
+
+
+
+    document.querySelector('emoji-picker')
+      .addEventListener('emoji-click', event => {
+        let mess = document.querySelector('#loinhan')
+        mess.value = mess.value + event.detail.unicode
+      });
+
+    let btnsendMess = document.querySelector('#sendMessage')
+    btnsendMess.addEventListener('click', () => {
+      let mess = document.querySelector('#loinhan')
+
+
+      let datasendMessage = {
+        message: mess.value,
+        nickname: document.querySelector('#nickname_user').innerText
+      }
+
+      socket.emit('datasendFromClient', datasendMessage)
+
+      mess.value = ''
+    })
+
+
+
+
+
+    socket.on('datasendFromAdmin', (data) => {
+      $.notify(`${data.nickname}: ${data.message}`, "success", { clickToHide: true }).addStyle('font-weight', 'bold')('opacity', '0.7');
+    })
+    //Quản lí chơi bầu cua
+    // Tổng cộng Admin sẽ có 3 hành động
+    // 1.Admin nhấn bắt đầu -> Sẽ lắc xúc xắc -> Cho thời gian đặt cược (20 giây) -> Hết thời gian đặt cược -> Tự khui xúc xắc -> Phát thưởng
+    // 2.Admin nhấn vào bắt đầu lại trò chơi
+
+    var statusGame = document.querySelector('#statusGame')
+    var array_status_game = ['Chờ chủ phòng bắt đầu !', 'Lắc xúc xắc',
+      'Đặt cược đeeee !', 'Hết giờ nhe', 'Khui', 'Lụm tiền', 'Chuẩn bị qua ván mới'];
+
+    //Chờ Admin bắt đầu ván
+    statusGame.innerText = array_status_game[0]
+
+    let btn_coinChoose = document.querySelectorAll('.coinChoose');
+    btn_coinChoose.forEach((item, index) => {
+      item.style.pointerEvents = 'none'
+      item.style.opacity = '0.5'
+    })
+
+
+
+
+    //Khi admin nhấn bắt đầu game
+    socket.on('action1FromAdmin', () => {
+      socket.emit('gamehavestart', 'dabatdau')
+      //5 giai đoạn
+      //1.Lắc xúc xắc
+      statusGame.innerText = array_status_game[1]
+      document.querySelector('#lopphu').style.display = 'block'
+      document.querySelector('#lopphu').style.zIndex = '2'
+      hd1();
+
+      //2. Đặt cược đi !
+      hd2()
+
+      //3. Khui nha
+      hd3()
+
+      socket.on('bobasomaiman', (bobaso) => {
+        setTimeout(() => {
+          chucmung.play()
+        }, 2000)
+        let xucxac = document.querySelector('#xucxac');
+
+        //Tao am thanh tung xuc xac
+
+        let hinh1 = showxucxac(bobaso.so1)
+
+        let hinh2 = showxucxac(bobaso.so2)
+
+        let hinh3 = showxucxac(bobaso.so3)
+
+
+
+        xucxac.innerHTML = `
+                <div id="tridiv" data-aos="flip-left"
+       data-aos-easing="ease-out-cubic"
+       data-aos-duration="2000">
+          <div class="scene" style="-webkit-transform:rotateX(-56deg) rotateY(-41deg); -moz-transform:rotateX(-56deg) rotateY(-41deg); -ms-transform:rotateX(-56deg) rotateY(-41deg); transform:rotateX(-56deg) rotateY(-41deg); ">
+            <div class="shape cuboid-1 cub-1">
+              <div class="face ft">
+                <div class="photon-shader" style="background-color: rgba(0, 0, 0, 0.176);"></div>
+              </div>
+              <div class="face bk">
+                <div class="photon-shader" style="background-color: rgba(0, 0, 0, 0.176);"></div>
+              </div>
+              <div class="face rt">
+                <div class="photon-shader" style="background-color: rgba(0, 0, 0, 0.176);"></div>
+              </div>
+              <div class="face lt">
+                <div class="photon-shader" style="background-color: rgba(0, 0, 0, 0.176);"></div>
+              </div>
+              <div class="face bm">
+                <div class="photon-shader" style="background-image:url('./img/${hinh1}') ;    
+                background-repeat: no-repeat;
+                background-size: cover;
+                background-position: center;
+                transform: rotate(165deg);"></div>
+              </div>
+              <div class="face tp">
+                <div class="photon-shader" style="background-color: rgba(0, 0, 0, 0.176);"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div id="tridiv2" data-aos="flip-left"
+       data-aos-easing="ease-out-cubic"
+       data-aos-duration="2000">
+          <div class="scene" style="-webkit-transform:rotateX(-56deg) rotateY(-41deg); -moz-transform:rotateX(-56deg) rotateY(-41deg); -ms-transform:rotateX(-56deg) rotateY(-41deg); transform:rotateX(-56deg) rotateY(-41deg); ">
+            <div class="shape cuboid-1 cub-1">
+              <div class="face ft">
+                <div class="photon-shader" style="background-color: rgba(0, 0, 0, 0.176);"></div>
+              </div>
+              <div class="face bk">
+                <div class="photon-shader" style="background-color: rgba(0, 0, 0, 0.176);"></div>
+              </div>
+              <div class="face rt">
+                <div class="photon-shader" style="background-color: rgba(0, 0, 0, 0.176);"></div>
+              </div>
+              <div class="face lt">
+                <div class="photon-shader" style="background-color: rgba(0, 0, 0, 0.176);"></div>
+              </div>
+              <div class="face bm">
+                <div class="photon-shader" style="background-image:url('./img/${hinh2}') ;    
+                background-repeat: no-repeat;
+                background-size: cover;
+                background-position: center;
+                transform: rotate(165deg);"></div>
+              </div>
+              <div class="face tp">
+                <div class="photon-shader" style="background-color: rgba(0, 0, 0, 0.176);"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div id="tridiv3" data-aos="flip-left"
+       data-aos-easing="ease-out-cubic"
+       data-aos-duration="2000"">
+          <div class="scene" style="-webkit-transform:rotateX(-56deg) rotateY(-41deg); -moz-transform:rotateX(-56deg) rotateY(-41deg); -ms-transform:rotateX(-56deg) rotateY(-41deg); transform:rotateX(-56deg) rotateY(-41deg); ">
+            <div class="shape cuboid-1 cub-1">
+              <div class="face ft">
+                <div class="photon-shader" style="background-color: rgba(0, 0, 0, 0.176);"></div>
+              </div>
+              <div class="face bk">
+                <div class="photon-shader" style="background-color: rgba(0, 0, 0, 0.176);"></div>
+              </div>
+              <div class="face rt">
+                <div class="photon-shader" style="background-color: rgba(0, 0, 0, 0.176);"></div>
+              </div>
+              <div class="face lt">
+                <div class="photon-shader" style="background-color: rgba(0, 0, 0, 0.176);"></div>
+              </div>
+              <div class="face bm">
+                <div class="photon-shader" style="background-image:url('./img/${hinh3}') ;    
+                background-repeat: no-repeat;
+                background-size: cover;
+                background-position: center;
+                transform: rotate(165deg);"></div>
+              </div>
+              <div class="face tp">
+                <div class="photon-shader" style="background-color: rgba(0, 0, 0, 0.176);"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+          `
+
+        setTimeout(() => {
+          taoamthanh(bobaso.so1)
+        }, 2600)
+
+        setTimeout(() => {
+          taoamthanh(bobaso.so2)
+        }, 3200)
+
+
+        setTimeout(() => {
+          taoamthanh(bobaso.so3)
+        }, 3800)
+      })
+
+
+      //   // 4. Hành động nhận thưởng
+      hd4();
+
+      //   //5.Hành động chuẩn bị qua ván mới
+      hd5();
+    })
+
+    function taoamthanh(amthanh) {
+      switch (amthanh) {
+        case 'nai':
+          nai.play();
+          break;
+        case 'bau':
+          bau.play();
+          break;
+        case 'ga':
+          ga.play();
+          break;
+        case 'ca':
+          ca.play();
+          break;
+        case 'tom':
+          tom.play();
+          break;
+        case 'cua':
+          cua.play();
+          break;
+      }
+    }
+
+    function showxucxac(baucuahinh) {
+      let chuoi = ''
+      if (baucuahinh == 'nai') {
+        chuoi = 'nai.png'
+      } else if (baucuahinh == 'bau') {
+        chuoi = 'bau.png'
+      } else if (baucuahinh == 'ga') {
+        chuoi = 'ga.png'
+      } else if (baucuahinh == 'ca') {
+        chuoi = 'ca.png'
+      } else if (baucuahinh == 'cua') {
+        chuoi = 'cua.png'
+      } else if (baucuahinh == 'tom') {
+        chuoi = 'tom.png'
+      }
+
+      return chuoi;
+    }
+
+
+
+
+    //Mô tả hàm hành động
+    //Hành động 1.Lắc xúc sắc
+    function hd1() {
+      soundhd1.play()
+      setTimeout(() => {
+        document.querySelector('#lopphu').style.display = 'block'
+        document.querySelector('#lopphu').style.zIndex = '2'
+        let btn_coinChoose = document.querySelectorAll('.coinChoose');
+        btn_coinChoose.forEach((item, index) => {
+          item.style.pointerEvents = 'none'
+          item.style.opacity = '0.5'
+        })
+        soundhd1_2.play()
+        document.querySelector('#xucxac').setAttribute('style', 'animation : lacxucxac 0.5s 5 linear backwards;');
+      }, 1500)
+    }
+
+    //Hành động 2.Hành động đặt cược đi
+    function hd2() {
+      soundhd1_2.pause()
+      setTimeout(() => {
+        document.querySelector('#lopphu').style.display = 'none'
+        document.querySelector('#lopphu').style.zIndex = '-1'
+        datcuocdi.play()
+        let btn_coinChoose = document.querySelectorAll('.coinChoose');
+        btn_coinChoose.forEach((item, index) => {
+          item.style.pointerEvents = 'none'
+          item.style.opacity = '0.5'
+        })
+        statusGame.innerText = array_status_game[2]
+
+        setTimeout(() => {
+          countDown();
+        }, 2000)
+      }, 5000)
+    }
+
+
+    //Hàm đếm ngược
+    function countDown() {
+      let countSum = 10
+      statusGame.innerText = 'Bắt đầu'
+      // hanhdongdatxu();
+      datcuoc.play()
+      let btn_coinChoose = document.querySelectorAll('.coinChoose');
+      btn_coinChoose.forEach((item, index) => {
+        item.style.pointerEvents = ''
+        item.style.opacity = '1'
+      })
+
+
+
+      let countDown = setInterval(() => {
+        demnguoc.play()
+        statusGame.innerText = countSum + ' giây'
+        countSum--;
+      }, 1000)
+
+      setTimeout(() => {
+        demnguoc.pause()
+        document.querySelector('#lopphu').style.display = 'block'
+        document.querySelector('#lopphu').style.zIndex = '2'
+        clearInterval(countDown)
+        statusGame.innerText = array_status_game[3]
+        hetgio.play()
+      }, 11000)
+    }
+
+
+    //3.Hành động khui nha
+    function hd3() {
+      setTimeout(() => {
+        document.querySelector('#lopphu').style.display = 'block'
+        document.querySelector('#lopphu').style.zIndex = '2'
+        khui.play()
+        let btn_coinChoose = document.querySelectorAll('.coinChoose');
+        btn_coinChoose.forEach((item, index) => {
+          item.style.pointerEvents = 'none'
+          item.style.opacity = '0.5'
+        })
+        // document.querySelector('#restart_order').style.display = 'none';
+        statusGame.innerText = array_status_game[4]
+        let arrayBauCua = []
+        let countcoinorder = document.querySelectorAll('.count_coin_order')
+        countcoinorder.forEach((item, index) => {
+          let tenbaucua = item.dataset.index;
+          let soluong = item.innerText;
+          let orderFromUser = {
+            ten: tenbaucua,
+            soluong: soluong
+          }
+          arrayBauCua.push(orderFromUser)
+        })
+
+        let nickname = document.querySelector('#nickname_user')
+
+        let dataSendFromClient = {
+          mangbaucua: arrayBauCua,
+          nicknameUser: nickname.innerText
+        }
+
+        socket.emit('khuixucxac', dataSendFromClient)
+      }, 20000)
+    }
+
+
+    //4.Hành động nhận thưởng
+    function hd4() {
+      setTimeout(() => {
+        document.querySelector('#lopphu').style.display = 'block'
+        document.querySelector('#lopphu').style.zIndex = '2'
+        xuroi.play()
+        let btn_coinChoose = document.querySelectorAll('.coinChoose');
+        btn_coinChoose.forEach((item, index) => {
+          item.style.pointerEvents = 'none'
+          item.style.opacity = '0.5'
+        })
+        statusGame.innerText = array_status_game[5]
+      }, 25000)
+    }
+
+
+    //Lãnh tiền
+    socket.on('tienxuthuduoc', (tongtienxu) => {
+      console.log(tongtienxu)
+      let nicknameFromClient = document.querySelector('#nickname_user').innerText
+      if (nicknameFromClient == tongtienxu.nickname) {
+        let xuthem = document.querySelector('#xuthem')
+        xuthem.innerHTML = `<span style="font-size: 20px;
+                          color: yellow;
+                          font-weight: bold;
+                          margin-left: 15px;">+ ${tongtienxu.tongtien}</span>   
+                          <img style="
+                          width: 30px;
+                          height: 30px;
+                      " src="img/coin.png" alt="">`
+
+        let tongxu = document.querySelector('#tongxu')
+        tongxu.innerText = parseInt(tongxu.innerText) + parseInt(tongtienxu.tongtien)
+        let guidi = {
+          nickname: document.querySelector('#nickname_user').innerText,
+          tongxu: tongxu.innerText
+        }
+        socket.emit('capnhattienmoi', guidi);
+      }
+
+    })
+
+    //5.Hành động qua ván mới
+    function hd5() {
+      setTimeout(() => {
+        document.querySelector('#lopphu').style.display = 'block'
+        document.querySelector('#lopphu').style.zIndex = '2'
+        let btn_coinChoose = document.querySelectorAll('.coinChoose');
+        btn_coinChoose.forEach((item, index) => {
+          item.style.pointerEvents = 'none'
+          item.style.opacity = '0.5'
+        })
+        statusGame.innerText = array_status_game[6]
+        chienthang.play();
+        document.querySelector('#xuthem').innerHTML = '';
+
+        // document.querySelectorAll('.cell_chess').reset()
+
+        xutempOrder = 0;
+        xuOrder = 0;
+        document.querySelectorAll('.count_coin_order').length = 0;
+        document.querySelectorAll('.count_coin_order').forEach((item, index) => {
+          item.innerHTML = ''
+        })
+
+        let showxu = document.querySelectorAll('.cell_chess ~ img')
+        document.querySelectorAll('.cell_chess ~ img').forEach((item, index) => {
+          item.remove()
+        })
+
+
+      }, 30000)
+    }
+
+    //Khi admin nhấn vào nút bắt đầu ván chơi mới
+    socket.on('action2FromAdmin', () => {
+      statusGame.innerText = array_status_game[0]
+      soundhd0.play()
+      xuOrder = 0;
+      xutempOrder = 0;
+      let xucxac = document.querySelector('#xucxac');
+      xucxac.innerHTML = `
+                        <div id="caito">
+
+                        </div>
+                        <div id="caidia">
+
+                        </div>`
+
+      xucxac.setAttribute('style', '')
+      // location.reload();
+    })
+
+
+    //Hàm tạo hiệu ứng đồng xu
+    function createCoin(dataindex) {
+      let img = document.createElement('img')
+      let randomPosition = Math.floor(Math.random() * 10);
+      let randomdegree = Math.floor(Math.random() * 10);
+      img.setAttribute('data-aos', "fade-up")
+      img.setAttribute('class', dataindex)
+      img.style.width = '25px';
+      img.style.height = '25px';
+      img.setAttribute('src', './img/coin.png')
+      img.style.position = 'absolute';
+      img.style.transform = `rotate(${randomdegree}deg) translate(-${randomPosition}px,${randomPosition}px)`;
+      img.style.top = '50%'
+      img.style.left = '50%'
+      return img
+    }
+
+
+    //Hàm tạo hiệu ứng đồng xu socket room
+    function createCoinSocket(dataindex) {
+      let img = document.createElement('img')
+      let randomPosition = Math.floor(Math.random() * 10);
+      let randomdegree = Math.floor(Math.random() * 10);
+      // img.setAttribute('data-aos', "fade-up")
+      img.setAttribute('class-socket', dataindex)
+      img.style.width = '25px';
+      img.style.height = '25px';
+      img.setAttribute('src', './img/coin.png')
+      img.style.position = 'absolute';
+      img.style.transform = `rotate(${randomdegree}deg) translate(-${randomPosition}px,${randomPosition}px)`;
+      img.style.top = '50%'
+      img.style.left = '50%'
+      return img
+    }
+
+    socket.on('showXuDatRoomSocket', (data) => {
+      let value = data[0]
+
+      let nai = parseInt(value.nai)
+      let bau = parseInt(value.bau)
+      let ga = parseInt(value.ga)
+      let ca = parseInt(value.ca)
+      let cua = parseInt(value.cua)
+      let tom = parseInt(value.tom)
+
+      if (nai > 0) {
+        loopXu(nai, 'nai')
+      }
+      if (bau > 0) {
+        loopXu(bau, 'bau')
+      }
+      if (ga > 0) {
+        loopXu(ga, 'ga')
+      }
+      if (ca > 0) {
+        loopXu(ca, 'ca')
+      }
+      if (cua > 0) {
+        loopXu(cua, 'cua')
+      }
+      if (tom > 0) {
+        loopXu(tom, 'tom')
+      }
+
+    })
+
+    function loopXu(name_length, name_index) {
+      let parentE = document.querySelectorAll(`.count_coin_order`)
+
+
+      parentE.forEach((item, index) => {
+        if (item.dataset.index == name_index) {
+          for (let i = 0; i < name_length; i++) {
+            let newCoin = createCoinSocket(name_index);
+            item.parentElement.appendChild(newCoin);
+          }
+        }
+      })
+    }
+
+
+
+
+
+
+
+
+
+    var number_coin_order = 0;
+    // let restartOrder = document.querySelector('#restart_order');
+
+
+
+    //Xử lí chọn số lượng xu cần đặt
+    document.querySelectorAll('.coinChoose').forEach((item, index) => {
+      item.addEventListener('click', (e) => {
+        number_coin_order = e.target.dataset.index;
+        // e.target.parentElement.parentElement.style.color = 'red'
+      })
+    })
+
+
+    // Lấy giá trị tổng xu của người chơi
+    let tongxu = document.querySelector('#tongxu')
+    //Check đặt giới hạn 25 xu
+    var xuOrder = 0;
+    var xutempOrder = 0;
+
+
+
+    //Xử lí tạo ảnh đồng xu hiển thị trên màn hình từng ô bầu cua
+    const getAllCell = document.querySelectorAll('.cell_chess')
+
+
+
+    document.querySelectorAll('.cell_chess').forEach((item, index) => {
+      item.addEventListener('click', (e) => {
+        tiengdatxu.play();
+        var dataIndex = e.target.dataset.index;
+        //Xử lí hiển thị số xu đã đặt
+        const countCoinOrder = document.querySelectorAll('.count_coin_order')
+
+
+        if (number_coin_order == 0) {
+          $("#statusGame").notify(`Vui lòng chọn số lượng xu cần đặt`, "warn", { clickToHide: true }).addStyle('font-weight', 'bold')('opacity', '0.6');
+          return false;
+        } else {
+          xuOrder += parseInt(number_coin_order)
+          let tongXu = parseInt(tongxu.innerText)
+
+          if (tongXu == 0) {
+            $("#statusGame").notify(`Hãy nạp thêm xu để đặt cược`, "warn", { clickToHide: true }).addStyle('font-weight', 'bold')('opacity', '0.6');
+
+          } else if (tongXu < parseInt(number_coin_order)) {
+            $("#statusGame").notify(`Số xu hiện tại không đủ`, "warn", { clickToHide: true }).addStyle('font-weight', 'bold')('opacity', '0.6');
+
+          }
+          else {
+            tongxu.innerText = parseInt(tongxu.innerText) - parseInt(number_coin_order);
+
+
+            console.log('so xu da chon:', number_coin_order)
+            for (let i = 0; i < number_coin_order; i++) {
+              let newCoin = createCoin(dataIndex);
+              e.target.parentElement.appendChild(newCoin);
+            }
+
+
+
+            xutempOrder += parseInt(number_coin_order);
+            document.querySelectorAll('.count_coin_order').forEach((item, index) => {
+              if (item.dataset.index == dataIndex) {
+                let countXu = document.querySelectorAll(`.${dataIndex}`)
+                item.innerText = countXu.length
+                console.log('da dat ' + countXu.length)
+                let xudat = {
+                  name: dataIndex,
+                  count_xu: number_coin_order
+                }
+                socket.emit('xudat', xudat)
+              }
+            })
+
+
+          }
+        }
+      })
+    }
+    )
+    // //Xử lí khi nhấn vào nút đặt lại
+    // restartOrder.addEventListener('click', () => {
+    //   let allcoin = document.querySelectorAll('.aos-init');
+    //   const countCoinOrder = document.querySelectorAll('.count_coin_order')
+
+    //   countCoinOrder.forEach((item, index) => {
+    //     item.innerHTML = ''
+    //   })
+
+
+    //   allcoin.forEach((item, index) => {
+    //     tongxu.innerText = parseInt(tongxu.innerText) + parseInt(xutempOrder);
+    //     xuOrder = 0;
+    //     xutempOrder = 0;
+    //     item.remove()
+    //   })
+    // })
+
+
+
+
+    //Đếm số người chơi hiển thị lên giao diện
+    var countUser = document.querySelector('#countUser');
+
+
+    let rightUsershow = document.querySelector('#right_user_show');
+
+
+    let userinroom = document.querySelector('#userinroom')
+    let btnshowuser = document.querySelector('#btn_show_user')
+
+    btnshowuser.addEventListener('click', () => {
+      socket.emit('showuserinRoom');
+    })
+
+    socket.on('showuserinRoomClient', async (data) => {
+      userinroom.innerHTML = '';
+
+      let ol = await document.createElement('ol');
+      data.forEach(function (item, index) {
+        let li = document.createElement('li')
+
+        li.innerHTML = '<p style="font-size:20px;font-weight:bold">' + data[index].nickname + ' - Số xu: ' + data[index].tongxu + '</p>'
+
+        ol.appendChild(li)
+
+        userinroom.appendChild(ol)
+      }
+      )
+
+    })
+
+    // setInterval(() => {
+    //   countUser.innerText = remember_number
+    // }, 1000)
+
+    //Khi có người mới tham gia vào phòng chơi sẽ render giao diện người chơi tham gia vào bàn chơi bầu cua
+    socket.on('createElementUser', (dataUser) => {
+      var userInLeft = document.querySelector('#left_user_show');
+      var userInRight = document.querySelector('#right_user_show');
+      var nicknameUser = document.querySelector('#nickname_user')
+
+      userInLeft.innerHTML = ''
+      userInRight.innerHTML = ''
+
+      for (let i = 0; i < dataUser.length; i++) {
+        let div = document.createElement('div')
+        if (i > 3) {
+          if (nicknameUser.innerText === dataUser[i].nickname) {
+            i++;
+          }
+          if (dataUser[i] != 'undefined') {
+            div.innerHTML = `
+              <p>${dataUser[i].nickname}</p>
+              <div id="img_user_right">
+                <img src="./${dataUser[i].anhdaidien}" alt="">
+              </div>
+              <div id="info_game_user_right">
+                <span>${dataUser[i].tongxu}</span>
+                <img src="img/coin.png" alt="">
+              </div>
+            </div>
+          `
+            userInRight.appendChild(div)
+          }
+
+        }
+        else {
+          if (nicknameUser.innerText === dataUser[i].nickname) {
+            i++;
+          }
+          if (dataUser[i] != 'undefined') {
+            div.innerHTML = `
+              <p>${dataUser[i].nickname}</p>
+              <div id="img_user">
+                <img src="./${dataUser[i].anhdaidien}" alt="">
+              </div>
+              <div id="info_game_user">
+                <span>${dataUser[i].tongxu}</span>
+                <img src="img/coin.png" alt="">
+              </div>
+          `
+            userInLeft.appendChild(div)
+          }
+        }
+      }
+    })
+
+
+    socket.on('countNumberUser', (data) => {
+      countUser.innerText = data;
+    })
+
+    socket.on("connect", () => {
+      //Khi có người chơi mới kết nối vào phòng sẽ gửi qua cho server biết
+      const nickname = document.querySelector('#nickname_user')
+      const tongxu = document.querySelector('#tongxu')
+      const anhdaidien = document.querySelector('#anhdaidien')
+      const socketID = socket.id;
+
+
+      soundhd0.play();
+
+      setTimeout(() => {
+        nhacnen.play()
+      }, 1500)
+      let roomUser = {
+        nickname: nickname.innerText,
+        tongxu: tongxu.innerText,
+        anhdaidien: anhdaidien.getAttribute('src'),
+        socketID: socketID
+      }
+
+      socket.emit('NewUserJoinRoom', roomUser)
+    });
+
+
+
+    socket.on('user disconnected', (data) => {
+      $.notify(`Người chơi "${data.nickname}" đã rời phòng !`, "warn", { clickToHide: true }).addStyle('font-weight', 'bold')('opacity', '0.6');
+    })
+
+    socket.on('notification_joinRoom', (data) => {
+      $.notify(`Người chơi "${data}" vừa tham gia phòng !`, "success").addStyle('font-weight', 'bold');
+    })
+
+    socket.on('waitingUserInRoom', (data) => {
+      alert('Phòng đã đầy !')
+      window.location.href = 'mainScreen'
+    })
+
+    socket.on('dabatdau', (data) => {
+      alert('Trò chơi đang diễn ra. Vui lòng quay lại sau !')
+      window.location.href = 'mainScreen'
+    })
+
+
+  </script>
+  <script>
+    window.addEventListener('beforeunload', (event) => {
+      event.preventDefault();
+      // Google Chrome requires returnValue to be set.
+      event.returnValue = '';
+    });
+
+    $(document).ready(function () {
+      // jQuery methods go here...
+      $('.preloader').fadeOut('slow');
+    });
+  </script>
+  </body>
+
+  </html>

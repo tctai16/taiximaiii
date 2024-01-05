@@ -1,0 +1,471 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,100&display=swap');
+
+*{
+    padding: 0;
+    margin:0;
+    font-family: 'Roboto', Arial, Helvetica, sans-serif;
+    box-sizing: border-box;
+}
+
+
+#img_anhdaidien{
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    outline: none;
+    overflow: hidden;
+    border: 2px solid #87de85;
+    /* box-shadow: 5px 3px 8px 1px black; */
+    margin: 0 auto;
+}
+
+#img_anhdaidien img{
+    border-radius: 50%;
+    width: 300px;
+    height: 300px;
+    object-fit: cover;
+    image-rendering: pixelated;
+}
+
+#err_page{
+
+}
+
+#err_page body
+{
+  background-color:#141019;
+  background: radial-gradient(at 50% -20%, #908392, #0d060e) fixed;
+}
+
+
+#err_page #handboy
+{
+   animation: swing ease-in-out 1.3s infinite alternate;
+    transform-origin: 98% 98%;
+    transform-box: fill-box;
+    
+}
+
+
+#err_page #girllight
+{
+   animation: swing ease-in-out 1.3s infinite alternate;
+    transform-origin: 0% 97%;
+    transform-box: fill-box;
+}
+
+#err_page #hairgirl
+{
+    animation: swinghair ease-in-out 1.3s infinite alternate;
+   transform-origin: 60% 0%;
+    transform-box: fill-box;
+  
+}
+
+#err_page #zero
+{
+  transform-origin:bottom;
+  transform-box:fill-box;
+  
+}
+
+/*************swing************/
+@keyframes swing {
+    0% { transform: rotate(10deg); }
+    100% { transform: rotate(-10deg); }
+}
+
+
+/*************swing hair************/
+@keyframes swinghair {
+    0% { transform: rotate(6deg); }
+    100% { transform: rotate(-6deg); }
+}
+
+
+#totienvnd{
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+}
+
+table thead th{
+    border: 1px solid #ccc;
+}
+
+table tbody td{
+    border: 1px solid #ccc;
+}
+
+.modal{
+    pointer-events: none;
+}
+
+.modal-body{
+    height: 567px;
+    overflow-y: scroll;
+}
+
+
+/* Css bên user bên trái */
+#left_user_show div:first-child{
+    margin-left: 20px;
+}
+
+
+
+#left_user_show div{
+    margin-top: 10px;
+}
+
+
+
+/* Css bên user bên phải */
+#right_user_show div:first-child{
+    margin-right: 20px;
+}
+
+
+#right_user_show div{
+    margin-top: 10px;
+}
+
+/* Hiệu chỉnh bàn cờ */
+#show_ban_co img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+#show_ban_co .col{
+    padding: 0;
+    margin: 0;
+}
+
+/* Css cho user trái, phải */
+#left_user_show > div, #right_user_show > div{
+    color: white;
+    display: inline-block;
+}
+
+#left_user_show > div > p, 
+#right_user_show > div > p{
+    margin: 0;
+    white-space: nowrap;
+    width: 40px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#left_user_show > div > div#img_user,
+#right_user_show > div > div#img_user_right
+{
+    border:2px solid #7bd6e5; 
+    display: inline-block;
+    border-radius: 5px;
+}
+
+#left_user_show > div > div#img_user > img,
+#right_user_show > div > div#img_user_right > img
+{
+    width: 30px;
+    height: 30px;
+    border:1px solid #7bd6e5;
+    background-color: white;
+}
+
+#left_user_show #info_game_user,
+#right_user_show #info_game_user_right
+{
+    display: flex;
+    border-radius: 5px 5px 5px 5px;
+    background-color: #473639;
+    width: fit-content;
+    padding: -2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    opacity: 0.8;
+}
+
+#left_user_show #info_game_user img,
+#right_user_show #info_game_user_right img
+{
+    width: 15px;
+    height: 15px;
+}
+
+
+
+#exTab1 .tab-content {
+    color : black;
+    background-color: white;
+    padding : 5px 15px;
+}
+  
+#exTab2 h3 {
+    color : black;
+    background-color: white;
+    padding : 5px 15px;
+}
+  
+  /* remove border radius for the tab */
+  
+#exTab1 .nav-pills > li > a {
+border-radius: 0;
+}
+  
+  /* change border radius for the tab , apply corners on top*/
+  
+#exTab3 .nav-pills > li > a {
+border-radius: 4px 4px 0 0 ;
+}
+  
+#exTab3 .tab-content {
+color : black;
+background-color: white;
+padding : 5px 15px;
+}
+
+
+
+/* Xử lí khi đặt đồng xu trong game */
+#show_ban_co .col{
+    position: relative;
+
+}
+
+  
+
+/* Chuông thông báo khi có giao dịch */
+#btn_buy_card{
+    position: relative;
+}
+
+#notification i{
+    font-size: 50px;
+}
+
+#notification{
+    display: none;
+    top: 52px;
+    left: -8px;
+    position: absolute;
+}
+
+
+/* Xử lí chọn số lượng xu đặt cược */
+body{
+    overflow-x: hidden;
+}
+
+.count_coin_order{
+    position: absolute;
+    width: fit-content;
+    height: fit-content;
+    font-weight: bold;
+    border-radius: 0 0 5px 5px;
+    background-color: blue;
+    top: 0;
+    left: 50%;
+    color: white;
+}
+
+
+#caito{
+  width: 84px;
+  height: 80px;
+  border-radius: 27px 27px 0px 0px;
+  background-color: orange;
+  margin: 0px auto;
+}
+
+
+#caidia{
+    width: 100px;
+    height: 10px;
+    border-radius: 10px;
+    background-color: white;
+    margin: 0 auto;
+}
+
+#xucxac{
+   position: relative;
+
+}
+
+@keyframes lacxucxac {
+    100%{
+        transform: translate(20px,-70px) rotate(25deg);
+    }
+}
+
+/* #xucxac img{
+    animation: anhchop infinite linear;
+}
+
+@keyframes anhchop {
+    0%{
+        border: 2px solid red;
+    }
+
+    100%{
+        border:2px solid blue;
+    }
+} */
+
+
+
+/* //Hình ảnh xí ngầu */
+/* /!\ You need to add vendor prefixes in order to render the CSS properly (or simply use http://leaverou.github.io/prefixfree/) /!\ */ #tridiv {
+    perspective: 707px;
+    position: absolute;
+    overflow: hidden;
+    width: 100%;
+    height: 100px;
+    background: transparent;
+    font-size: 20%;
+    top: -65px;
+    left: -34%;
+}
+
+#tridiv2 {
+    perspective: 707px;
+    position: absolute;
+    overflow: hidden;
+    width: 100%;
+    height: 100px;
+    background: transparent;
+    font-size: 20%;
+    top: -65px;
+    left: 0%;
+}
+
+#tridiv3 {
+    perspective: 707px;
+    position: absolute;
+    overflow: hidden;
+    width: 100%;
+    height: 100px;
+    background: transparent;
+    font-size: 20%;
+    top: -65px;
+    left: 36%;
+}
+.face {
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.4);
+}
+.scene, .shape, .face, .face-wrapper, .cr {
+  position: absolute;
+  transform-style: preserve-3d;
+}
+.scene {
+  width: 80em;
+  height: 80em;
+  top: 50%;
+  left: 50%;
+  margin: -40em 0 0 -40em;
+}
+.shape {
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  transform-origin: 50%;
+}
+.face, .face-wrapper {
+  overflow: hidden;
+  transform-origin: 0 0;
+  backface-visibility: hidden;
+  /* hidden by default, prevent blinking and other weird rendering glitchs */
+}
+.face {
+  background-size: 100% 100%!important;
+  background-position: center;
+}
+.face-wrapper .face {
+  left: 100%;
+  width: 100%;
+  height: 100%
+}
+.photon-shader {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%
+}
+.side {
+  left: 50%;
+}
+.cr, .cr .side {
+  height: 100%;
+}
+[class*="cuboid"] .ft, [class*="cuboid"] .bk {
+  width: 100%;
+  height: 100%;
+}
+[class*="cuboid"] .bk {
+  left: 100%;
+}
+[class*="cuboid"] .rt {
+  transform: rotateY(-90deg) translateX(-50%);
+}
+[class*="cuboid"] .lt {
+  transform: rotateY(90deg) translateX(-50%);
+}
+[class*="cuboid"] .tp {
+  transform: rotateX(90deg) translateY(-50%);
+}
+[class*="cuboid"] .bm {
+  transform: rotateX(-90deg) translateY(-50%);
+}
+[class*="cuboid"] .lt {
+  left: 100%;
+}
+[class*="cuboid"] .bm {
+  top: 100%;
+}
+/* .cub-1 styles */
+.cub-1 {
+  transform:translate3D(2em, -5.8921568627450975em, 6.012254901960785em) rotateX(-180deg) rotateY(180deg) rotateZ(0deg);
+  opacity:1;
+  width:12em;
+  height:12em;
+  margin:-6em 0 0 -6em;
+}
+.cub-1 .ft {
+  transform:translateZ(6em);
+}
+.cub-1 .bk {
+  transform:translateZ(-6em) rotateY(180deg);
+}
+.cub-1 .rt, .cub-1 .lt {
+  width:12em;
+  height:12em;
+}
+.cub-1 .tp, .cub-1 .bm {
+  width:12em;
+  height:12em;
+}
+.cub-1 .face {
+  background-color:#FFFFFF;
+}
+
+
+
+/* Sử dụng hiệu ứng loader chờ đợi trang web tải xong. */
+.preloader {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  background-image: url("/img/LoadingIM.gif");
+  background-repeat: no-repeat; 
+  background-color: #FFF;
+  background-position: center;
+  opacity: 0.5;
+}

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FirstScreen Page Loading</title>
+    <!-- Bootstrap-5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+        crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+
+
+    <!-- Su dung Boxicons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+    <!-- or -->
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+
+    <!-- Gan link css -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- //favicion -->
+    <link rel="icon" type="image/png" href="/img/logo.png" sizes="16x16">
+
+    <!-- 
+ Thư viện AOS hiệu ứng -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        #anhnen {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+        }
+
+        #anhnen img {
+            width: 100%;
+            height: 100%;
+            object-fit: fill;
+        }
+
+        #btn_start {
+            position: absolute;
+            top: 77%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: red;
+            border-radius: 5px;
+            padding: 10px;
+            color: yellow;
+            font-weight: bold;
+            border: 0;
+        }
+
+        #myItem1 {
+            width: 367px !important;
+            height: 109px !important;
+            position: absolute;
+            top: 85%;
+            opacity: 0;
+            color: yellow;
+        }
+
+        html {
+            overflow: hidden;
+        }
+
+        .ldBar-label {
+            position: absolute;
+            top: 51%;
+            left: 39%;
+            font-size: 39px;
+            transform: translate(11px, -30px);
+            color: white;
+            font-weight: bold;
+        }
+    </style>
+    <link rel="stylesheet" type="text/css" href="loading-bar.css" />
+</head>
+
+<body id="loading">
+    <div id="anhnen">
+        <img src="./img/background_loading.png" alt="">
+    </div>
+
+    <button id="btn_start">BẮT ĐẦU</button>
+    <div data-preset="stripe" class="ldBar label-center" data-value="0" id="myItem1"></div>
+
+    <!-- Hỗ trợ âm thanh cho game -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js" integrity="sha512-6+YN/9o9BWrk6wSfGxQGpt3EUK6XeHi6yeHV+TYD2GR0Sj/cggRpXr1BrAQf0as6XslxomMUxXp2vIl+fv0QRA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- Loading Bar -->
+    <script type="text/javascript" src="/js/loading-bar.js"></script>
+    <script>
+        // Tiếng chuông reo khi có thông báo
+        var sound = new Howl({
+            src: ['/audio/nhacnenloading.mp3']
+        });
+
+        let progress = document.querySelector('#myItem1')
+
+        let btnStart = document.querySelector('#btn_start')
+
+
+
+        btnStart.addEventListener('click', () => {
+            sound.play()
+            btnStart.style.display = 'none'
+            progress.style.opacity = 1
+
+            /* construct manually */
+            var bar1 = new ldBar("#myItem1");
+            /* ldBar stored in the element */
+            var bar2 = document.getElementById('myItem1').ldBar;
+
+            let valueNumber = document.querySelector('.ldBar-label')
+            valueNumber.innerText = valueNumber.innerText + '%'
+
+            setTimeout(() => {
+                bar1.set(10)
+            }, 1000)
+
+            setTimeout(() => {
+                bar1.set(30)
+            }, 2300)
+
+            setTimeout(() => {
+                bar1.set(50)
+            }, 4000)
+
+            setTimeout(() => {
+                bar1.set(80)
+            }, 5600)
+
+            setTimeout(() => {
+                bar1.set(100)
+            }, 6300)
+
+            setTimeout(() => {
+                window.location.href = 'home'
+            }, 8000)
+
+
+        })
+
+
+
+
+
+
+    </script>
+</body>
+
+</html>

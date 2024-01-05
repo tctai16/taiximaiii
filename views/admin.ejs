@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- Bootstrap-5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+        crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+
+
+    <!-- Su dung Boxicons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+    <!-- or -->
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+
+    <!-- Gan link css -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- //favicion -->
+    <link rel="icon" type="image/png" href="/img/logo.png" sizes="16x16">
+
+    <!-- 
+    Thư viện AOS hiệu ứng -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        body {
+            overflow-y: scroll;
+        }
+    </style>
+</head>
+
+<body>
+    <title>Admin</title>
+    <div class="container text-center">
+        <div class="card text-center">
+            <div class="card-header">
+                <h2>Admin Game</h2>
+            </div>
+            <div class="card-body">
+                <div id="exTab1" class="container">
+                    <div class="row">
+                        <ul class="nav nav-pills d-flex flex-nowrap justify-content-between">
+                            <li class="active">
+                                <a href="#1a" class="text-decoration-none" data-toggle="tab">
+                                    <button type="button" class="btn btn-success" id="btn_buy_card">Quản lý nạp tiền</button>
+                                    <div id="notification">
+                                        <i class='bx bxs-bell-ring bx-rotate-90 bx-tada' style='color:red'></i>
+                                    </div>
+                                </a>
+                            </li>
+                            <li><a href="#2a" class="text-decoration-none" data-toggle="tab">
+                                    <button type="button" class="btn btn-primary">Quản lý phòng game</button>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+
+                    <div class=" tab-content clearfix mt-5">
+                        <div class="tab-pane active" id="1a">
+
+                            <h6 class="text-start">Bảng tóm tắt yêu cầu nạp tiền từ người chơi (Xử lý 1 giao dịch / lần)</h6>
+
+                            <table width="100%">
+                                <thead>
+                                    <th>Tên người chơi</th>
+                                    <th>Số tiền nạp</th>
+                                    <th>Hành động</th>
+                                </thead>
+                                <tbody id="table_req">
+                                    <tr id="default_tr">
+                                        <td colspan="3">Hiện tại không có giao dịch</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <br>
+                            <br>
+
+                            <h6 class="text-start">Bảng quản lí giao dịch rút tiền</h6>
+
+                            <table width="100%">
+                                <thead>
+                                    <th>Tên người chơi</th>
+                                    <th>Số tiền rút</th>
+                                    <th>Hành động</th>
+                                </thead>
+                                <tbody id="table_ruttien">
+                                    <tr id="default_tr_ruttien">
+                                        <td colspan="3">Hiện tại không có giao dịch</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+
+
+                            <div class="row mt-5">
+                                <div class="col">
+                                    <!-- Button trigger modal -->
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" id="btnOpenModal">
+                                        Xem lịch sử giao dịch
+                                    </button>
+
+
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+                                        aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="staticBackdropLabel">Lịch sử giao dịch</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <table width="100%">
+                                                        <thead>
+                                                            <th>Tên người chơi</th>
+                                                            <th>Số xu đã nạp</th>
+                                                            <th>Thời gian giao dịch</th>
+                                                        </thead>
+                                                        <tbody>
+                                                            <% for(var i=0; i < buyCardInfo.length; i++) {%>
+                                                                <tr>
+                                                                    <td>
+                                                                        <%= buyCardInfo[i].tennguoichoi %>
+                                                                    </td>
+                                                                    <td>
+                                                                        <%= buyCardInfo[i].sotiennap %>
+                                                                    </td>
+                                                                    <td>
+                                                                        <%= buyCardInfo[i].thoigian %>
+                                                                    </td>
+                                                                </tr>
+                                                                <% } %>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                            <div class="container">
+                                <div class="row mt-5">
+                                    <h2 style="color:red">Bảng quy đổi xu</h2>
+                                    <div class="col">
+                                        <img src="img/bangquydoixu.png" style="object-fit: contain;
+                                object-position: center;
+                                image-rendering: pixelated;margin-left: -33px;
+                                border: 1px solid blue;
+                                border-radius: 10px;
+                                margin-top: 10px;" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Tab quản lý game -->
+                        <div class="tab-pane" id="2a">
+                            <p class="fw-bold">Danh sách người chơi trong phòng</p>
+                            <div id="userinroom" class="border border-primary" style="padding: 5px;border-radius: 5px;">
+
+                            </div>
+
+                            <h6 class="mt-3">Quản lí màn chơi bầu cua</h6>
+                            <!-- Quản lí hành động game -->
+                            <div id="action_game" class="d-flex align-items-start flex-column border border-primary" style="padding: 5px;border-radius: 5px;">
+                                <div id="startGame">
+                                    <button type="button" class="btn btn-danger text-white" id="startGame">1. Bắt đầu</button>
+                                </div>
+                                <br>
+                                <div id="restart">
+                                    <button type="button" class="btn btn-success" id="restart">2.Bắt đầu lại</button>
+                                </div>
+                            </div>
+
+                            <br>
+                            <br>
+                            <br>
+                            <p>Nút sửa tất cả lỗi hiện có :</p>
+                            <button type="button" class="btn btn-info text-white" id="fixed">Sửa lỗi</button>
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+
+
+
+
+        </div>
+
+        <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+
+        <!-- Hỗ trợ âm thanh cho game -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js" integrity="sha512-6+YN/9o9BWrk6wSfGxQGpt3EUK6XeHi6yeHV+TYD2GR0Sj/cggRpXr1BrAQf0as6XslxomMUxXp2vIl+fv0QRA=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+        <script>
+            var socket = io();
+            let btn_accept = document.querySelector('#accept')
+            let tbody = document.querySelector('#table_req')
+
+            var data_user = '';
+            var default_tr = document.querySelector('#default_tr')
+
+            let notification_icon = document.querySelector('#notification')
+
+
+
+            let userinroom = document.querySelector('#userinroom')
+            // Tiếng chuông reo khi có thông 
+            var sound = new Howl({
+                src: ['/audio/TiengTing.mp3']
+            });
+
+
+            //Quản lí chơi bầu cua
+            // Tổng cộng Admin sẽ có 3 hành động
+            // 1.Admin nhấn bắt đầu -> Sẽ lắc xúc xắc -> Cho thời gian đặt cược (20 giây) -> Hết thời gian đặt cược -> Tự khui xúc xắc -> Phát thưởng
+            // 2.Admin nhấn vào bắt đầu lại trò chơi
+
+            document.querySelector('#startGame').style.display = 'block';
+
+
+            document.querySelector('#restart').style.display = 'none'
+
+            //Nhấn nút bắt đầu
+            document.querySelector('#startGame').addEventListener('click', () => {
+                socket.emit('action1');
+                document.querySelector('#startGame').style.display = 'none'
+                document.querySelector('#restart').style.display = 'block'
+            })
+
+
+
+            //Nhấn nút bắt đầu lại màn chơi
+            document.querySelector('#restart').addEventListener('click', () => {
+                socket.emit('action2');
+                document.querySelector('#restart').style.display = 'none'
+                document.querySelector('#startGame').style.display = 'block'
+            })
+
+
+            socket.on('createElementUser', (data) => {
+                userinroom.innerHTML = ''
+                data.forEach((item, index) => {
+                    let div = document.createElement('div')
+                    div.style.borderColor = '#ccc';
+                    div.innerHTML = `<p>${index + 1}. ${item.nickname} - ${item.tongxu} xu</p>`
+                    userinroom.appendChild(div)
+                })
+            })
+
+            notification_icon.style.display = 'none'
+            socket.on('userOnline', (data) => {
+                sound.play()
+                notification_icon.style.display = 'block'
+                default_tr.style.display = 'none'
+                let tr = document.createElement('tr');
+                let td1 = document.createElement('td');
+                let td2 = document.createElement('td');
+                let td3 = document.createElement('td');
+
+                td1.innerText = data.nickname
+                td2.innerText = data.money + ' xu'
+                td3.innerHTML = "<i class='bx bx-check-circle bx-tada yes' style='color:#1be02a' data-id='" + data.socket_user + "'></i> &nbsp&nbsp&nbsp&nbsp<i class='bx bxs-x-square bx-flip-vertical bx-tada no' style='color:#e03b06'  ></i>";
+
+                tr.appendChild(td1)
+                tr.appendChild(td2)
+                tr.appendChild(td3)
+
+                tbody.append(tr)
+                data_user = data;
+
+                let btn_yes = document.querySelectorAll('.yes')
+                let btn_no = document.querySelectorAll('.no')
+
+                btn_yes.forEach((item, index) => {
+                    item.addEventListener('click', (e) => {
+                        e.target.parentElement.parentElement.remove();
+                        socket.emit('accept_buy_card', data_user)
+                        alert('Nạp tiền thành công!')
+                        setTimeout(() => {
+                            location.reload();
+                            sound.pause()
+                        }, 500)
+                    })
+                })
+
+                btn_no.forEach((item, index) => {
+                    item.addEventListener('click', (e) => {
+                        e.target.parentElement.parentElement.remove();
+                        socket.emit('deny_buy_card', data_user)
+                        alert('Đã từ chối nạp tiền!')
+                        notification_icon.style.display = 'none'
+                        sound.pause()
+                    })
+                })
+            })
+
+
+            //Hành động rút tiền
+            var tbody_ruttien = document.querySelector('#table_ruttien')
+            var default_tr_ruttien = document.querySelector('#default_tr_ruttien')
+            socket.on('userruttien', (data) => {
+                sound.play()
+                notification_icon.style.display = 'block'
+                default_tr_ruttien.style.display = 'none'
+                let tr = document.createElement('tr');
+                let td1 = document.createElement('td');
+                let td2 = document.createElement('td');
+                let td3 = document.createElement('td');
+
+                td1.innerText = data.nickname
+                td2.innerText = data.sotienrut
+                td3.innerHTML = "<i class='bx bx-check-circle bx-tada yes' style='color:#1be02a' data-id='" + data.socket_user + "'></i> &nbsp&nbsp&nbsp&nbsp<i class='bx bxs-x-square bx-flip-vertical bx-tada no' style='color:#e03b06'  ></i>";
+
+                tr.appendChild(td1)
+                tr.appendChild(td2)
+                tr.appendChild(td3)
+
+                tbody_ruttien.append(tr)
+                data_user = data;
+
+                let btn_yes = document.querySelectorAll('.yes')
+                let btn_no = document.querySelectorAll('.no')
+
+                btn_yes.forEach((item, index) => {
+                    item.addEventListener('click', (e) => {
+                        e.target.parentElement.parentElement.remove();
+                        socket.emit('accept_ruttien', data_user)
+                        alert('Rút tiền thành công!')
+
+                        setTimeout(() => {
+                            location.reload();
+                            sound.pause()
+                        }, 500)
+                    })
+                })
+
+                btn_no.forEach((item, index) => {
+                    item.addEventListener('click', (e) => {
+                        e.target.parentElement.parentElement.remove();
+                        socket.emit('deny_ruttien', data_user)
+                        alert('Đã từ chối rút tiền!')
+                        notification_icon.style.display = 'none'
+                        sound.pause()
+                    })
+                })
+            })
+
+
+            let btnFix = document.querySelector('#fixed')
+
+            btnFix.addEventListener('click', () => {
+                socket.emit('fixed')
+            })
+        </script>
+
+</body>
+
+</html>
